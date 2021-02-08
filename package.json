@@ -1,0 +1,27 @@
+{
+  "name": "web-landingpage-aboutjavascript",
+  "version": "1.0.0",
+  "description": "about JS",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bonnysid/web-landingpage-aboutJavascript.git"
+  },
+  "author": "bonnysid",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bonnysid/web-landingpage-aboutJavascript/issues"
+  },
+  "homepage": "https://github.com/bonnysid/web-landingpage-aboutJavascript#readme",
+  "dependencies": {
+    "json-server": "^0.16.3"
+  },
+  "devDependencies": {
+    "webpack": "^5.21.2",
+    "webpack-cli": "^4.5.0"
+  }
+}
