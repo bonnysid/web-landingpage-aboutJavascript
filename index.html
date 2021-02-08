@@ -22,12 +22,12 @@
     </a>
 
     <nav class="navbar">
-        <a href="#cheer" class="navbar-link active">Cheer</a>
-        <a href="#triangle" class="navbar-link">Triangle Area</a>
-        <a href="#words" class="navbar-link">Correspondence of words</a>
-        <a href="#minmax" class="navbar-link">Min/Max element</a>
-        <a href="#timer" class="navbar-link">Timer</a>
-        <a href="#test" class="navbar-link">Test</a>
+        <a href="#cheer" class="navbar-link active">Приветствие</a>
+        <a href="#triangle" class="navbar-link">Площадь Треугольника</a>
+        <a href="#words" class="navbar-link">Схожесть слов</a>
+        <a href="#minmax" class="navbar-link">Min/Max элемент</a>
+        <a href="#timer" class="navbar-link">Секундомер</a>
+        <a href="#test" class="navbar-link">Тест</a>
     </nav>
 </header>
 
@@ -36,14 +36,15 @@
     <section id="cheer" class="block bg-yellow cheer">
         <div class="container two-col">
             <div class="part">
-                <h2 class="title">Hello, dear friend!</h2>
-                <p class="text">JavaScript is a lightweight, interpreted, object-oriented language
-                    with first-class functions, and is best known as the scripting language for Web pages, but it's used in
-                    many non-browser environments as well.</p>
-                <p class="text">Input here your name!</p>
+                <h2 class="title">Привет, дорогой друг!</h2>
+                <p class="text"><b>JavaScript</b> - это лёгкий, интерпретируемый, объектно-ориентированный язык с
+                    функциями первого класса,
+                    самый известный скриптовый язык для веб-страниц, но также используется во многих не браузерных
+                    окружениях. Для его использования необходимо установить NodeJS!</p>
+                <p class="text">Напиши сюда свое имя!</p>
                 <form class="form" autocomplete="on">
                     <input class="input" type="text" placeholder="Your name">
-                    <button class="btn" type="submit">submit</button>
+                    <button class="btn" type="submit">Принять</button>
                 </form>
             </div>
             <div class="part-img">
@@ -62,6 +63,22 @@
     </section>
 
     <section id="triangle" class="block bg-white">
+        <div class="container two-col">
+            <div class="part-img">
+                <canvas width="100%" height="100%"></canvas>
+            </div>
+            <div class="part">
+                <h2 class="title">Площадь Треугольника</h2>
+                <p class="text">Здесь ты можешь посчитать площадь треугольника. В JavaScript вы можете сделать любую
+                    формулу, а результат округлить при помощи методов объекта Math.floor (в меньшую) и Math.ceil (всегда
+                    в большую).</p>
+                <form class="form">
+                    <input class="input" type="text" placeholder="Высота треугольника">
+                    <input class="input" type="text" placeholder="Основание треугольника">
+                    <button class="btn">Calculate</button>
+                </form>
+            </div>
+        </div>
         <div class="wave">
             <svg class="whiteWave" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100"
                  preserveAspectRatio="none">
@@ -72,6 +89,25 @@
     </section>
 
     <section id="words" class="block bg-off-white">
+        <div class="container two-col">
+            <div class="part">
+                <h2 class="title">Схожесть слов</h2>
+                <p class="text">
+                    Ты можешь проверить два слова на равенство их длин! У каждой строки есть свойство length, которое
+                    показывает количество символов в строке. Для строго сравнение используется '==='!</p>
+                <form class="form form-triangle">
+                    <input class="input" type="text" placeholder="Первое слово">
+                    <input class="input" type="text" placeholder="Второе слово">
+                    <button class="btn">Проверить</button>
+                    <p>Результат: </p>
+                </form>
+            </div>
+            <div class="part-img">
+                <svg class="svg">
+                    <use xlink:href="./src/assets/img/icons.svg#strings"></use>
+                </svg>
+            </div>
+        </div>
         <div class="wave">
             <svg class="grayWave" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100"
                  preserveAspectRatio="none">
@@ -82,6 +118,26 @@
     </section>
 
     <section id="minmax" class="block bg-white">
+        <div class="container two-col">
+            <div class="part-img">
+                <svg class="svg">
+                    <use xlink:href="./src/assets/img/icons.svg#growth"></use>
+                </svg>
+            </div>
+            <div class="part">
+                <h2 class="title">Min / Max</h2>
+                <p class="text">
+                    Так же в JavaScript присутствуют методы у глобального объекта Math для определения минимального
+                    значения(Math.min) и для максимального(Math.math). Введите через запятую числа и проверьте работу
+                    этих методов!</p>
+                <form class="form form-triangle">
+                    <input class="input" type="text" placeholder="1,2,3,4">
+                    <button class="btn">Проверить</button>
+                    <p>Min: </p>
+                    <p>Max: </p>
+                </form>
+            </div>
+        </div>
         <div class="wave">
             <svg class="whiteWave" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100"
                  preserveAspectRatio="none">
@@ -92,6 +148,27 @@
     </section>
 
     <section id="timer" class="block bg-off-white">
+        <div class="container two-col">
+            <div class="part">
+                <h2 class="title">Секундомер</h2>
+                <p class="text">
+                    На JavaScript можно написать свой секундомер! Для этого нам понадобятся конструкторы класса Date и
+                    функция setInterval!</p>
+                <div class="timer">
+                    <div class="hours">00</div>
+                    <span>:</span>
+                    <div class="minutes">00</div>
+                    <span>:</span>
+                    <div class="seconds">00</div>
+                </div>
+
+            </div>
+            <div class="part-img">
+                <svg class="svg">
+                    <use xlink:href="./src/assets/img/icons.svg#timer"></use>
+                </svg>
+            </div>
+        </div>
         <div class="wave">
             <svg class="grayWave" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100"
                  preserveAspectRatio="none">
@@ -102,11 +179,169 @@
     </section>
 
     <section id="test" class="block bg-white">
-        <h2 class="title">Simple Test</h2>
-        <form autocomplete="on">
-            <input type="text" placeholder="Your name">
-            <button class="btn" type="submit">Ok</button>
-        </form>
+        <div class="container test">
+            <h2 class="title test-title">Тест</h2>
+            <form autocomplete="on">
+                <span class="test-q">Какой метод нужно вызвать у Math чтобы получить максимальное число из массива?</span>
+                <div class="answers">
+                    <div class="answer">
+                        <input class="radio" type="radio" name="max" value="max" id="max">
+                        <label class="radio-label" for="max">max</label>
+                    </div>
+                    <div class="answer">
+                        <input class="radio" type="radio" name="max" value="maximal" id="maximal">
+                        <label class="radio-label" for="maximal">maximal</label>
+                    </div>
+                    <div class="answer">
+                        <input class="radio" type="radio" name="max" value="maximum" id="maximum">
+                        <label class="radio-label" for="maximum">maximum</label>
+                    </div>
+                </div>
+
+                <span class="test-q">Какой метод нужно вызвать у Math чтобы получить минимальное число из массива?</span>
+                <div class="answers">
+                    <div class="answer">
+                        <input class="radio" type="radio" name="min" value="min" id="min">
+                        <label class="radio-label" for="min">min</label>
+                    </div>
+                    <div class="answer">
+                        <input class="radio" type="radio" name="min" value="minimal" id="minimal">
+                        <label class="radio-label" for="minimal">minimal</label>
+                    </div>
+                    <div class="answer">
+                        <input class="radio" type="radio" name="min" value="minimum" id="minimum">
+                        <label class="radio-label" for="minimum">minimum</label>
+                    </div>
+                </div>
+
+                <span class="test-q">Конструктор какого класса используется для того чтобы получить время?</span>
+                <div class="answers">
+                    <div class="answer">
+                        <input class="radio" type="radio" name="date" value="Time" id="Time">
+                        <label class="radio-label" for="Time">Time</label>
+                    </div>
+                    <div class="answer">
+                        <input class="radio" type="radio" name="date" value="Date" id="Date">
+                        <label class="radio-label" for="Date">Date</label>
+                    </div>
+                    <div class="answer">
+                        <input class="radio" type="radio" name="date" value="Data" id="Data">
+                        <label class="radio-label" for="Data">Data</label>
+                    </div>
+                </div>
+
+                <span class="test-q">Для чего нужна функция setInterval?</span>
+                <div class="answers">
+                    <div class="answer">
+                        <input class="radio" type="radio" name="interval" value="forTimeout" id="forTimeout">
+                        <label class="radio-label" for="forTimeout">Для запуска таймаута</label>
+                    </div>
+                    <div class="answer">
+                        <input class="radio" type="radio" name="interval" value="forInterval" id="forInterval">
+                        <label class="radio-label" for="forInterval">Для запуска интервала</label>
+                    </div>
+                    <div class="answer">
+                        <input class="radio" type="radio" name="interval" value="dontKnow" id="dontKnow">
+                        <label class="radio-label" for="dontKnow">Не знаю</label>
+                    </div>
+                </div>
+
+                <span class="test-q">При помощи чего в JavaScript происходит строгое сравнение?</span>
+                <div class="answers">
+                    <div class="answer">
+                        <input class="radio" type="radio" name="equals" value="tripleEq" id="tripleEq">
+                        <label class="radio-label" for="tripleEq">==</label>
+                    </div>
+                    <div class="answer">
+                        <input class="radio" type="radio" name="equals" value="doubleEq" id="doubleEq">
+                        <label class="radio-label" for="doubleEq">===</label>
+                    </div>
+                    <div class="answer">
+                        <input class="radio" type="radio" name="equals" value="eq" id="eq">
+                        <label class="radio-label" for="eq">=</label>
+                    </div>
+                </div>
+
+                <span class="test-q">Какой метод нужно вызвать у Math чтобы округлить в большую сторону?</span>
+                <div class="answers">
+                    <div class="answer">
+                        <input class="radio" type="radio" name="ceil" value="ceil" id="ceil">
+                        <label class="radio-label" for="ceil">ceil</label>
+                    </div>
+                    <div class="answer">
+                        <input class="radio" type="radio" name="ceil" value="round" id="round">
+                        <label class="radio-label" for="round">round</label>
+                    </div>
+                    <div class="answer">
+                        <input class="radio" type="radio" name="ceil" value="floor" id="floor">
+                        <label class="radio-label" for="floor">floor</label>
+                    </div>
+                </div>
+
+                <span class="test-q">Какой метод нужно вызвать у Math чтобы округлить в меньшую сторону?</span>
+                <div class="answers">
+                    <div class="answer">
+                        <input class="radio" type="radio" name="round" value="round" id="round1">
+                        <label class="radio-label" for="round1">round</label>
+                    </div>
+
+                    <div class="answer">
+                        <input class="radio" type="radio" name="round" value="floor" id="floor1">
+                        <label class="radio-label" for="floor1">floor</label>
+                    </div>
+                    <div class="answer">
+                        <input class="radio" type="radio" name="round" value="ceil" id="ceil1">
+                        <label class="radio-label" for="ceil1">ceil</label>
+                    </div>
+                </div>
+
+                <span class="test-q">Каким языком является JavaScript?</span>
+                <div class="answers">
+                    <div class="answer">
+                        <input class="radio" type="radio" name="js" value="interp" id="interp">
+                        <label class="radio-label" for="interp">Интерпретируемый</label>
+                    </div>
+                    <div class="answer">
+                        <input class="radio" type="radio" name="js" value="oop" id="oop">
+                        <label class="radio-label" for="oop">Объектно ориентированным</label>
+                    </div>
+                    <div class="answer">
+                        <input class="radio" type="radio" name="js" value="same" id="same">
+                        <label class="radio-label" for="same">И тем и тем</label>
+                    </div>
+                </div>
+
+                <span class="test-q">JavaScript используется только в браузере?</span>
+                <div class="answers">
+                    <div class="answer">
+                        <input class="radio" type="radio" name="jsBrowser" value="no" id="no">
+                        <label class="radio-label" for="no">Нет</label>
+                    </div>
+                    <div class="answer">
+                        <input class="radio" type="radio" name="jsBrowser" value="yes" id="yes">
+                        <label class="radio-label" for="yes">Да</label>
+                    </div>
+                </div>
+
+                <span class="test-q">Без чего не будет работать JavaScript?</span>
+                <div class="answers">
+                    <div class="answer">
+                        <input class="radio" type="radio" name="node" value="node" id="node">
+                        <label class="radio-label" for="node">node</label>
+                    </div>
+                    <div class="answer">
+                        <input class="radio" type="radio" name="node" value="java" id="java">
+                        <label class="radio-label" for="java">java</label>
+                    </div>
+                    <div class="answer">
+                        <input class="radio" type="radio" name="node" value="yarn" id="yarn">
+                        <label class="radio-label" for="yarn">yarn</label>
+                    </div>
+                </div>
+
+                <button class="btn test-btn" type="submit">Проверить</button>
+            </form>
+        </div>
     </section>
 
 </main>
