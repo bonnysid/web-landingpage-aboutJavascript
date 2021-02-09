@@ -6,10 +6,10 @@ export const getValues = (...inputs) => {
     return inputs.map(input => input.value);
 }
 
-export const handleSubmit = (e, form, callback, props) => {
-    e.preventDefault();
-    const inputs = getInputs(form);
+export const handleSubmit = (props) => {
+    props.event.preventDefault();
+    const inputs = getInputs(props.form);
     const values = getValues(...inputs);
 
-    callback(values, {form, ...props});
+    props.callback(values, {...props});
 }

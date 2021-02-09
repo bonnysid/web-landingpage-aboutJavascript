@@ -22,12 +22,12 @@ const getValues = (...inputs) => {
     return inputs.map(input => input.value);
 }
 
-const handleSubmit = (e, form, callback, props) => {
-    e.preventDefault();
-    const inputs = getInputs(form);
+const handleSubmit = (props) => {
+    props.event.preventDefault();
+    const inputs = getInputs(props.form);
     const values = getValues(...inputs);
 
-    callback(values, {form, ...props});
+    props.callback(values, {...props});
 }
 
 /***/ }),
@@ -41,6 +41,8 @@ const handleSubmit = (e, form, callback, props) => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _triangleBlock__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./triangleBlock */ "./src/components/triangleBlock.js");
 /* harmony import */ var _nameBlock__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./nameBlock */ "./src/components/nameBlock.js");
+/* harmony import */ var _wordsBlock__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./wordsBlock */ "./src/components/wordsBlock.js");
+
 
 
 
@@ -48,10 +50,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
     (0,_nameBlock__WEBPACK_IMPORTED_MODULE_1__.default)();
     (0,_triangleBlock__WEBPACK_IMPORTED_MODULE_0__.default)();
+    (0,_wordsBlock__WEBPACK_IMPORTED_MODULE_2__.default)();
 
 
 
-    const wordsForm = document.querySelector('.words-form');
 
     const minMaxForm = document.querySelector('.minmax-form');
 
@@ -138,6 +140,8 @@ const activateNameBlock = () => {
             const formParent = form.parentElement;
             const title = formParent.querySelector('.title');
             const label = formParent.querySelector('label');
+            const input = form.querySelector('input');
+            input.value = '';
 
             form.style.display = 'none';
             label.style.display = 'none';
@@ -148,7 +152,11 @@ const activateNameBlock = () => {
 
     }
 
-    nameForm.addEventListener('submit', evt => (0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.handleSubmit)(evt, nameForm, getNameInput))
+    nameForm.addEventListener('submit', event => (0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.handleSubmit)({
+        event,
+        form: nameForm,
+        callback: getNameInput
+    }))
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (activateNameBlock);
@@ -209,7 +217,10 @@ const activateTriangleBlock = () => {
         ctx.fill();
     }
 
-    triangleForm.addEventListener('submit', evt => (0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.handleSubmit)(evt, triangleForm, calculateTriangleArea, {
+    triangleForm.addEventListener('submit', evt => (0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.handleSubmit)({
+        form: triangleForm,
+        event: evt,
+        callback: calculateTriangleArea,
         ctx: triangleCanvasContext,
         width: 3,
         fill: '#546dd8',
@@ -220,6 +231,40 @@ const activateTriangleBlock = () => {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (activateTriangleBlock);
+
+/***/ }),
+
+/***/ "./src/components/wordsBlock.js":
+/*!**************************************!*\
+  !*** ./src/components/wordsBlock.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _formFunctions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./formFunctions */ "./src/components/formFunctions.js");
+
+
+const activateWordsBlock = () => {
+    const wordsForm = document.querySelector('.words-form');
+
+    const checkForEquals = (values, props) => {
+        const [first, second] = values;
+        const answer = props.form.querySelector('p');
+
+        answer.innerHTML = `Равны: <span style="color: ${first.trim().length === second.trim().length ? '#70b35f' : '#bf5050'}">${first.trim().length === second.trim().length}</span>`
+    }
+
+    wordsForm.addEventListener('submit', (event) => (0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.handleSubmit)({
+        event,
+        form: wordsForm,
+        callback: checkForEquals
+    }))
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (activateWordsBlock);
 
 /***/ })
 

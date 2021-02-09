@@ -1,14 +1,15 @@
 import activateTriangleBlock from "./triangleBlock";
 import activateNameBlock from "./nameBlock";
+import activateWordsBlock from "./wordsBlock";
 
 window.addEventListener('DOMContentLoaded', () => {
 
     activateNameBlock();
     activateTriangleBlock();
+    activateWordsBlock();
 
 
 
-    const wordsForm = document.querySelector('.words-form');
 
     const minMaxForm = document.querySelector('.minmax-form');
 

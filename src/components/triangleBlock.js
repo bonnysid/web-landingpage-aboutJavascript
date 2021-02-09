@@ -41,7 +41,10 @@ const activateTriangleBlock = () => {
         ctx.fill();
     }
 
-    triangleForm.addEventListener('submit', evt => handleSubmit(evt, triangleForm, calculateTriangleArea, {
+    triangleForm.addEventListener('submit', evt => handleSubmit({
+        form: triangleForm,
+        event: evt,
+        callback: calculateTriangleArea,
         ctx: triangleCanvasContext,
         width: 3,
         fill: '#546dd8',

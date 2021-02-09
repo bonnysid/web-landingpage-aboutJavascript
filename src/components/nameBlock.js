@@ -63,6 +63,8 @@ const activateNameBlock = () => {
             const formParent = form.parentElement;
             const title = formParent.querySelector('.title');
             const label = formParent.querySelector('label');
+            const input = form.querySelector('input');
+            input.value = '';
 
             form.style.display = 'none';
             label.style.display = 'none';
@@ -73,7 +75,11 @@ const activateNameBlock = () => {
 
     }
 
-    nameForm.addEventListener('submit', evt => handleSubmit(evt, nameForm, getNameInput))
+    nameForm.addEventListener('submit', event => handleSubmit({
+        event,
+        form: nameForm,
+        callback: getNameInput
+    }))
 }
 
 export default activateNameBlock;
