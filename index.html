@@ -15,11 +15,14 @@
 <body>
 
 <header class="header">
-    <a href="#cheer">
-        <svg class="logo">
-            <use xlink:href="./src/assets/img/icons.svg#logo"></use>
-        </svg>
-    </a>
+    <div class="logo-container">
+        <a href="#cheer">
+            <svg class="logo">
+                <use xlink:href="./src/assets/img/icons.svg#logo"></use>
+            </svg>
+        </a>
+
+    </div>
 
     <nav class="navbar">
         <a href="#cheer" class="navbar-link active">Приветствие</a>
@@ -41,8 +44,8 @@
                     функциями первого класса,
                     самый известный скриптовый язык для веб-страниц, но также используется во многих не браузерных
                     окружениях. Для его использования необходимо установить NodeJS!</p>
-                <p class="text">Напиши сюда свое имя!</p>
-                <form class="form" autocomplete="on">
+                <label class="text">Напиши сюда свое имя!</label>
+                <form class="form name-form" autocomplete="on">
                     <input class="input" type="text" placeholder="Your name">
                     <button class="btn" type="submit">Принять</button>
                 </form>
@@ -65,17 +68,17 @@
     <section id="triangle" class="block bg-white">
         <div class="container two-col">
             <div class="part-img">
-                <canvas width="100%" height="100%"></canvas>
+                <canvas id="triangle-canvas" width="300px" height="300px"></canvas>
             </div>
             <div class="part">
                 <h2 class="title">Площадь Треугольника</h2>
                 <p class="text">Здесь ты можешь посчитать площадь треугольника. В JavaScript вы можете сделать любую
                     формулу, а результат округлить при помощи методов объекта Math.floor (в меньшую) и Math.ceil (всегда
                     в большую).</p>
-                <form class="form">
+                <form class="form triangle-form">
                     <input class="input" type="text" placeholder="Высота треугольника">
                     <input class="input" type="text" placeholder="Основание треугольника">
-                    <button class="btn">Calculate</button>
+                    <button id="triangle-btn" class="btn">Посчитать</button>
                 </form>
             </div>
         </div>
@@ -95,7 +98,7 @@
                 <p class="text">
                     Ты можешь проверить два слова на равенство их длин! У каждой строки есть свойство length, которое
                     показывает количество символов в строке. Для строго сравнение используется '==='!</p>
-                <form class="form form-triangle">
+                <form class="form words-form">
                     <input class="input" type="text" placeholder="Первое слово">
                     <input class="input" type="text" placeholder="Второе слово">
                     <button class="btn">Проверить</button>
@@ -130,7 +133,7 @@
                     Так же в JavaScript присутствуют методы у глобального объекта Math для определения минимального
                     значения(Math.min) и для максимального(Math.math). Введите через запятую числа и проверьте работу
                     этих методов!</p>
-                <form class="form form-triangle">
+                <form class="form minmax-form">
                     <input class="input" type="text" placeholder="1,2,3,4">
                     <button class="btn">Проверить</button>
                     <p>Min: </p>
@@ -181,7 +184,7 @@
     <section id="test" class="block bg-white">
         <div class="container test">
             <h2 class="title test-title">Тест</h2>
-            <form autocomplete="on">
+            <form class="test-form" autocomplete="on">
                 <span class="test-q">Какой метод нужно вызвать у Math чтобы получить максимальное число из массива?</span>
                 <div class="answers">
                     <div class="answer">
@@ -349,6 +352,8 @@
 <footer class="footer">
     <h3 class="text" style="text-transform: uppercase; color: var(--white)">made by: bonnysid</h3>
 </footer>
+
+<script src="js/bundle.js"></script>
 </body>
 
 </html>

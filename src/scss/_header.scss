@@ -16,6 +16,28 @@
   padding: 1em;
 }
 
+.logout {
+  fill: #985b5b;
+  width: 28px;
+  height: 28px;
+  margin-left: 0.7em;
+  cursor: pointer;
+}
+
+.logo-container {
+  display: flex;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login {
+  font-size: 28px;
+}
+
 .navbar-link {
   padding: 0.5em 1em;
   background: transparent;
