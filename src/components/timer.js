@@ -13,7 +13,7 @@ const activateTimer = () => {
 
     const start = (startTime, oldTime = 0) => {
         oldTimeStart = startTime;
-        time = startTime + oldTime;
+        const time = startTime + oldTime;
         startBtn.style.display = 'none';
         stopBtn.style.display = 'flex';
         resetBtn.disabled = false;
@@ -23,7 +23,6 @@ const activateTimer = () => {
 
     const stop = () => {
         isStopped = true;
-        oldTimeStart = oldTimeStart -
         startBtn.style.display = 'flex';
         stopBtn.style.display = 'none';
     }

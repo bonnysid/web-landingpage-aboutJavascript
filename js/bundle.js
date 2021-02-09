@@ -1,4 +1,5 @@
 /******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/components/formFunctions.js":
@@ -7,7 +8,6 @@
   \*****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getInputs": () => (/* binding */ getInputs),
@@ -38,7 +38,6 @@ const handleSubmit = (props) => {
   \*********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _triangleBlock__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./triangleBlock */ "./src/components/triangleBlock.js");
 /* harmony import */ var _nameBlock__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./nameBlock */ "./src/components/nameBlock.js");
@@ -69,7 +68,6 @@ window.addEventListener('DOMContentLoaded', () => {
   \***************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -109,7 +107,6 @@ const activateMinMaxBlock = () => {
   \*************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -207,9 +204,76 @@ const activateNameBlock = () => {
 /*!*********************************!*\
   !*** ./src/components/timer.js ***!
   \*********************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-throw new Error("Module parse failed: Assigning to rvalue (26:23)\nYou may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders\n|     const stop = () => {\n|         isStopped = true;\n>         oldTimeStart = oldTimeStart -\n|         startBtn.style.display = 'flex';\n|         stopBtn.style.display = 'none';");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const activateTimer = () => {
+    const timer = document.querySelector('.timer');
+    const hrs = timer.querySelector('.hours');
+    const min = timer.querySelector('.minutes');
+    const sec = timer.querySelector('.seconds');
+
+    const startBtn = document.querySelector('.start-btn');
+    const stopBtn = document.querySelector('.stop-btn');
+    const resetBtn = document.querySelector('.reset-btn');
+
+    let isStopped = false;
+    let oldTimeStart;
+
+    const start = (startTime, oldTime = 0) => {
+        oldTimeStart = startTime;
+        const time = startTime + oldTime;
+        startBtn.style.display = 'none';
+        stopBtn.style.display = 'flex';
+        resetBtn.disabled = false;
+        isStopped = false;
+        const timeInterval = setInterval(() => updateTime(startTime, timeInterval), 1000);
+    }
+
+    const stop = () => {
+        isStopped = true;
+        startBtn.style.display = 'flex';
+        stopBtn.style.display = 'none';
+    }
+
+    const reset = () => {
+        isStopped = true;
+        startBtn.style.display = 'flex';
+        stopBtn.style.display = 'none';
+        hrs.innerHTML = `00`;
+        min.innerHTML = `00`;
+        sec.innerHTML = `00`;
+    }
+
+    const updateTime = (startTime, interval) => {
+        if(isStopped) clearInterval(interval);
+
+        const nowTime = Date.parse(new Date());
+
+        const diff = nowTime - startTime;
+
+        const s = getZero(Math.floor(diff / 1000 % 60));
+        const m = getZero(Math.floor((diff / 1000  / 60) % 60));
+        const h = getZero(Math.floor((diff / 1000 / 60 / 24) % 24));
+
+        hrs.innerHTML = `${h}`;
+        min.innerHTML = `${m}`;
+        sec.innerHTML = `${s}`;
+    }
+
+    const getZero = (num) => num >= 0 && num < 10 ? `0${num}` : num;
+
+    startBtn.addEventListener('click', () => {
+        start(Date.parse(new Date()));
+    });
+    stopBtn.addEventListener('click', stop);
+    resetBtn.addEventListener('click', reset);
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (activateTimer);
 
 /***/ }),
 
@@ -219,7 +283,6 @@ throw new Error("Module parse failed: Assigning to rvalue (26:23)\nYou may need 
   \*****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -291,7 +354,6 @@ const activateTriangleBlock = () => {
   \**************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
