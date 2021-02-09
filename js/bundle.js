@@ -1,5 +1,4 @@
 /******/ (() => { // webpackBootstrap
-/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/components/formFunctions.js":
@@ -8,6 +7,7 @@
   \*****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getInputs": () => (/* binding */ getInputs),
@@ -38,10 +38,15 @@ const handleSubmit = (props) => {
   \*********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _triangleBlock__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./triangleBlock */ "./src/components/triangleBlock.js");
 /* harmony import */ var _nameBlock__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./nameBlock */ "./src/components/nameBlock.js");
 /* harmony import */ var _wordsBlock__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./wordsBlock */ "./src/components/wordsBlock.js");
+/* harmony import */ var _minMaxBlock__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./minMaxBlock */ "./src/components/minMaxBlock.js");
+/* harmony import */ var _timer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./timer */ "./src/components/timer.js");
+
+
 
 
 
@@ -51,16 +56,50 @@ window.addEventListener('DOMContentLoaded', () => {
     (0,_nameBlock__WEBPACK_IMPORTED_MODULE_1__.default)();
     (0,_triangleBlock__WEBPACK_IMPORTED_MODULE_0__.default)();
     (0,_wordsBlock__WEBPACK_IMPORTED_MODULE_2__.default)();
+    (0,_minMaxBlock__WEBPACK_IMPORTED_MODULE_3__.default)();
+    (0,_timer__WEBPACK_IMPORTED_MODULE_4__.default)();
+    const testForm = document.querySelector('.test-form');
+})
+
+/***/ }),
+
+/***/ "./src/components/minMaxBlock.js":
+/*!***************************************!*\
+  !*** ./src/components/minMaxBlock.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _formFunctions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./formFunctions */ "./src/components/formFunctions.js");
 
 
-
-
+const activateMinMaxBlock = () => {
     const minMaxForm = document.querySelector('.minmax-form');
 
-    const testForm = document.querySelector('.test-form');
+    const findMinMax = (values, props) => {
+        let [numValues] = values;
+        numValues = numValues.trim().split(',').map(num => +num);
+        console.log(numValues)
+        const {form} = props;
+        const min = form.querySelector('.min');
+        const max = form.querySelector('.max');
 
+        min.innerHTML = `<span style="color: #bf5050">Min</span>: ${Math.min(...numValues)}`;
+        max.innerHTML = `<span style="color: #70b35f">Max</span>: ${Math.max(...numValues)}`;
+    }
 
-})
+    minMaxForm.addEventListener('submit', event => (0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.handleSubmit)({
+        event,
+        form: minMaxForm,
+        callback: findMinMax
+    }))
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (activateMinMaxBlock);
 
 /***/ }),
 
@@ -70,6 +109,7 @@ window.addEventListener('DOMContentLoaded', () => {
   \*************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -163,12 +203,23 @@ const activateNameBlock = () => {
 
 /***/ }),
 
+/***/ "./src/components/timer.js":
+/*!*********************************!*\
+  !*** ./src/components/timer.js ***!
+  \*********************************/
+/***/ (() => {
+
+throw new Error("Module parse failed: Assigning to rvalue (26:23)\nYou may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders\n|     const stop = () => {\n|         isStopped = true;\n>         oldTimeStart = oldTimeStart -\n|         startBtn.style.display = 'flex';\n|         stopBtn.style.display = 'none';");
+
+/***/ }),
+
 /***/ "./src/components/triangleBlock.js":
 /*!*****************************************!*\
   !*** ./src/components/triangleBlock.js ***!
   \*****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -240,6 +291,7 @@ const activateTriangleBlock = () => {
   \**************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)

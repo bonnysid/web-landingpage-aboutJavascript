@@ -2,3 +2,51 @@
   display: flex;
   font-size: 40px;
 }
+
+.start-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.7em 1em;
+  border-radius: 40px;
+  text-transform: uppercase;
+  min-width: 100px;
+  transition: .3s;
+  font-size: 17px;
+  background: var(--green);
+  color: var(--off-white);
+  margin-right: 1em;
+  &:hover {
+    background: var(--green-light);
+  }
+}
+
+.timer-btns {
+  display: flex;
+  margin-top: 1em;
+}
+
+.stop-btn {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 0.7em 1em;
+  border-radius: 40px;
+  text-transform: uppercase;
+  min-width: 100px;
+  transition: .3s;
+  font-size: 17px;
+  background: var(--red);
+  color: var(--off-white);
+  margin-right: 1em;
+  &:hover {
+    background: var(--red-light);
+  }
+}
+
+.reset-btn:disabled {
+  background: gray;
+  &:hover {
+    background: gray;
+  }
+}

@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <title>About JavaScript</title>
+    <script  src="js/bundle.js"></script>
 </head>
 <body>
 
@@ -136,8 +137,8 @@
                 <form class="form minmax-form">
                     <input class="input" type="text" placeholder="1,2,3,4">
                     <button class="btn">Проверить</button>
-                    <p>Min: </p>
-                    <p>Max: </p>
+                    <p class="min"><span style="color: #bf5050">Min</span>: </p>
+                    <p class="max"><span style="color: #70b35f">Max</span>: </p>
                 </form>
             </div>
         </div>
@@ -163,6 +164,11 @@
                     <div class="minutes">00</div>
                     <span>:</span>
                     <div class="seconds">00</div>
+                </div>
+                <div class="timer-btns">
+                    <button class="start-btn">Старт</button>
+                    <button class="stop-btn">Стоп</button>
+                    <button disabled class="btn reset-btn">Сбросить</button>
                 </div>
 
             </div>
@@ -353,7 +359,7 @@
     <h3 class="text" style="text-transform: uppercase; color: var(--white)">made by: bonnysid</h3>
 </footer>
 
-<script src="js/bundle.js"></script>
+
 </body>
 
 </html>

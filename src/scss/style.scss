@@ -61,6 +61,7 @@ body {
   transition: .3s;
   font-size: 17px;
 
+
   &:hover {
     background: var(--light-blue);
   }
@@ -140,6 +141,10 @@ body {
   --yellow: #edd640;
   --light-yellow: #ece095;
   --page-size: 626px;
+  --red: #bf5050;
+  --green: #70b35f;
+  --red-light: #c36e6e;
+  --green-light: #9ac38f;
 
   --text-color: var(--not-quite-black);
   --title-size: 48px;
