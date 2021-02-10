@@ -31,3 +31,13 @@
   margin-bottom: 2em;
   text-transform: uppercase;
 }
+
+@media (max-width: 768px) {
+  .answer{
+    margin: 1em auto;
+  }
+
+  .answers {
+    flex-direction: column;
+  }
+}

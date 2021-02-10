@@ -2,6 +2,37 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/components/burger.js":
+/*!**********************************!*\
+  !*** ./src/components/burger.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const activateBurger = () => {
+    const burger = document.querySelector('.burger');
+    const menu = document.querySelector('.navbar');
+    const aside = document.querySelector('.aside');
+
+    const toggleMenu = () => {
+        document.body.classList.toggle('closed');
+        menu.classList.toggle('active');
+        burger.classList.toggle('active');
+        aside.classList.toggle('active');
+    }
+
+    burger.addEventListener('click', evt => {
+        toggleMenu();
+    })
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (activateBurger);
+
+/***/ }),
+
 /***/ "./src/components/formFunctions.js":
 /*!*****************************************!*\
   !*** ./src/components/formFunctions.js ***!
@@ -14,8 +45,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getValues": () => (/* binding */ getValues),
 /* harmony export */   "handleSubmit": () => (/* binding */ handleSubmit)
 /* harmony export */ });
-const getInputs = (form) => {
-    return form.querySelectorAll(`input`);
+const getInputs = (form, checked) => {
+    return form.querySelectorAll(`input${checked ? ':checked' : ''}`);
 }
 
 const getValues = (...inputs) => {
@@ -24,10 +55,10 @@ const getValues = (...inputs) => {
 
 const handleSubmit = (props) => {
     props.event.preventDefault();
-    const inputs = getInputs(props.form);
+    const inputs = getInputs(props.form, props.checked);
     const values = getValues(...inputs);
 
-    props.callback(values, {...props});
+    props.callback(values, {inputs: inputs, ...props});
 }
 
 /***/ }),
@@ -44,6 +75,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordsBlock__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./wordsBlock */ "./src/components/wordsBlock.js");
 /* harmony import */ var _minMaxBlock__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./minMaxBlock */ "./src/components/minMaxBlock.js");
 /* harmony import */ var _timer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./timer */ "./src/components/timer.js");
+/* harmony import */ var _testBlock__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./testBlock */ "./src/components/testBlock.js");
+/* harmony import */ var _burger__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./burger */ "./src/components/burger.js");
+/* harmony import */ var _navbar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./navbar */ "./src/components/navbar.js");
+
+
+
 
 
 
@@ -51,13 +88,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 window.addEventListener('DOMContentLoaded', () => {
-
     (0,_nameBlock__WEBPACK_IMPORTED_MODULE_1__.default)();
     (0,_triangleBlock__WEBPACK_IMPORTED_MODULE_0__.default)();
     (0,_wordsBlock__WEBPACK_IMPORTED_MODULE_2__.default)();
     (0,_minMaxBlock__WEBPACK_IMPORTED_MODULE_3__.default)();
     (0,_timer__WEBPACK_IMPORTED_MODULE_4__.default)();
-    const testForm = document.querySelector('.test-form');
+    (0,_testBlock__WEBPACK_IMPORTED_MODULE_5__.default)();
+    (0,_burger__WEBPACK_IMPORTED_MODULE_6__.default)();
+    (0,_navbar__WEBPACK_IMPORTED_MODULE_7__.default)();
 })
 
 /***/ }),
@@ -197,6 +235,126 @@ const activateNameBlock = () => {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (activateNameBlock);
+
+/***/ }),
+
+/***/ "./src/components/navbar.js":
+/*!**********************************!*\
+  !*** ./src/components/navbar.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const activateNavbar = () => {
+    const navbar = document.querySelector('.navbar');
+    const links = navbar.querySelectorAll('.navbar-link');
+
+    const selectButton = (link) => {
+        disableActive();
+        addActive(link);
+    }
+
+    const disableActive = () => {
+        links.forEach(link => link.classList.remove('active'));
+    }
+
+    const addActive = (link) => link.classList.add('active');
+
+    links.forEach(link => link.addEventListener('click', () => selectButton(link)));
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (activateNavbar);
+
+/***/ }),
+
+/***/ "./src/components/testBlock.js":
+/*!*************************************!*\
+  !*** ./src/components/testBlock.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _formFunctions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./formFunctions */ "./src/components/formFunctions.js");
+
+
+const activateTest = () => {
+    const testForm = document.querySelector('.test-form');
+    const testTitle = document.querySelector('.test-title');
+
+    const submitForm = (values, props) => {
+        const rightAnswers = values.reduce((total, answer, i) => total + (answer.toLowerCase().trim() === props.rightAnswers[i] ? 1 : 0), 0);
+        const againBtn = document.createElement('button');
+        againBtn.classList.add('btn');
+        againBtn.innerHTML = 'Пройти заново';
+        againBtn.style.margin = '1em auto';
+
+        let color;
+        let additionalText;
+
+        if (rightAnswers <= 3) {
+            color = '#bf5050';
+            additionalText = 'вам нужно подтянуть свои знания!'
+        }
+        else if (rightAnswers <= 7 ) {
+            color = '#edd640';
+            additionalText = 'не плохой результат!'
+        }
+        else {
+            color = '#70b35f';
+            additionalText = 'отличный результат!'
+        }
+
+
+
+        const resultTest = document.createElement('p');
+        resultTest.innerHTML = `${rightAnswers} / 10, ${additionalText}`;
+        resultTest.style.textAlign = 'center';
+        resultTest.style.color = `${color}`;
+        props.form.style.display = 'none';
+
+        againBtn.addEventListener('click', ev => {
+            props.form.style.display = 'block';
+            resultTest.remove();
+            againBtn.remove();
+            props.inputs.forEach(input => input.checked = false);
+        })
+
+        props.title.innerHTML = 'Результат';
+        props.title.insertAdjacentElement('afterend', resultTest);
+        resultTest.insertAdjacentElement('afterend', againBtn);
+
+
+
+    }
+
+    testForm.addEventListener('submit', event => (0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.handleSubmit)({
+        event,
+        form: testForm,
+        checked: true,
+        callback:submitForm,
+        title: testTitle,
+        rightAnswers: [
+            'max',
+            'min',
+            'date',
+            'forinterval',
+            'tripleeq',
+            'ceil',
+            'floor',
+            'same',
+            'no',
+            'node'
+        ]
+    }))
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (activateTest);
 
 /***/ }),
 

@@ -75,16 +75,39 @@ body {
 
 }
 
+.closed {
+  overflow: hidden;
+}
+
 .part-img {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+.aside {
+  position: fixed;
+  right: -100%;
+  z-index: 2;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(35, 38, 41, 0.5);
+
+  &.active {
+    right: 0;
+  }
+}
+
 .two-col {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 7em;
+  padding: 0 1em;
+}
+
+.hidden {
+  display: none;
 }
 
 .title {
@@ -150,4 +173,18 @@ body {
   --title-size: 48px;
   --text-size: 20px;
 }
+@media (max-width: 425px) {
+  .part-img {
+    display: none;
+  }
+
+  .two-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+
+
 

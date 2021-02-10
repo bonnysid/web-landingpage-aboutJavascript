@@ -1,5 +1,5 @@
-export const getInputs = (form) => {
-    return form.querySelectorAll(`input`);
+export const getInputs = (form, checked) => {
+    return form.querySelectorAll(`input${checked ? ':checked' : ''}`);
 }
 
 export const getValues = (...inputs) => {
@@ -8,8 +8,8 @@ export const getValues = (...inputs) => {
 
 export const handleSubmit = (props) => {
     props.event.preventDefault();
-    const inputs = getInputs(props.form);
+    const inputs = getInputs(props.form, props.checked);
     const values = getValues(...inputs);
 
-    props.callback(values, {...props});
+    props.callback(values, {inputs: inputs, ...props});
 }

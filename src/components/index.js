@@ -3,13 +3,17 @@ import activateNameBlock from "./nameBlock";
 import activateWordsBlock from "./wordsBlock";
 import activateMinMaxBlock from "./minMaxBlock";
 import activateTimer from "./timer";
+import activateTest from "./testBlock";
+import activateBurger from "./burger";
+import activateNavbar from "./navbar";
 
 window.addEventListener('DOMContentLoaded', () => {
-
     activateNameBlock();
     activateTriangleBlock();
     activateWordsBlock();
     activateMinMaxBlock();
     activateTimer();
-    const testForm = document.querySelector('.test-form');
+    activateTest();
+    activateBurger();
+    activateNavbar();
 })
