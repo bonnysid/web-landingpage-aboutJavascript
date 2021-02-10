@@ -222,34 +222,51 @@ const activateTimer = () => {
 
     let isStopped = false;
     let oldTimeStart;
+    let firstTime = true;
 
-    const start = (startTime, oldTime = 0) => {
-        oldTimeStart = startTime;
-        const time = startTime + oldTime;
+    const start = () => {
+        let time;
+        if (firstTime) {
+            time = Date.parse(new Date());
+            oldTimeStart = time;
+            firstTime = false;
+        }
+        else {
+            time = Date.parse(new Date()) - oldTimeStart;
+        }
         startBtn.style.display = 'none';
         stopBtn.style.display = 'flex';
         resetBtn.disabled = false;
         isStopped = false;
-        const timeInterval = setInterval(() => updateTime(startTime, timeInterval), 1000);
+        const timeInterval = setInterval(() => updateTime(time, timeInterval), 1000);
     }
 
     const stop = () => {
+        const h = +hrs.innerHTML,
+            m = +min.innerHTML,
+            s = +sec.innerHTML;
         isStopped = true;
         startBtn.style.display = 'flex';
         stopBtn.style.display = 'none';
+        oldTimeStart = h * 1000 * 60 * 60 + m * 60 * 1000 + s * 1000
     }
 
     const reset = () => {
         isStopped = true;
         startBtn.style.display = 'flex';
         stopBtn.style.display = 'none';
+        resetBtn.disabled = true;
+        firstTime = true;
         hrs.innerHTML = `00`;
         min.innerHTML = `00`;
         sec.innerHTML = `00`;
     }
 
     const updateTime = (startTime, interval) => {
-        if(isStopped) clearInterval(interval);
+        if(isStopped) {
+            clearInterval(interval);
+            return;
+        }
 
         const nowTime = Date.parse(new Date());
 
@@ -266,9 +283,7 @@ const activateTimer = () => {
 
     const getZero = (num) => num >= 0 && num < 10 ? `0${num}` : num;
 
-    startBtn.addEventListener('click', () => {
-        start(Date.parse(new Date()));
-    });
+    startBtn.addEventListener('click', start);
     stopBtn.addEventListener('click', stop);
     resetBtn.addEventListener('click', reset);
 }
