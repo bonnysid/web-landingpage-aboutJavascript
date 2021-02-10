@@ -108,28 +108,50 @@ window.addEventListener('DOMContentLoaded', () => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addInputErrorToValueChange": () => (/* binding */ addInputErrorToValueChange),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-const addInputError = (input, error) => {
+const addInputErrorToValueChange = (input, error) => {
+    input.addEventListener('input', (e) => {
+        if (input.value.trim().length === 0) activateError(input, textError)
+        else deactivateError(input, textError);
+    })
+}
+
+const checkForTextError = (input) => {
+    return input.previousElementSibling && input.previousElementSibling.classList.contains('error-text') ? input.previousElementSibling : null;
+}
+
+const addInputErrorToEvent = (input, error) => {
+    const textError = checkForTextError(input) || addTextError(input, error);
+
+    return (e) => {
+        if (input.value.trim().length === 0) activateError(input, textError)
+        else deactivateError(input, textError);
+    }
+}
+
+const addTextError = (input, error) => {
     const textError = document.createElement('span');
     textError.classList.add('error-text');
     textError.innerHTML = error;
     textError.style.display = 'none';
     input.before(textError);
+    return textError;
+}
 
-    input.addEventListener('input', (e) => {
-        if (input.value.trim().length === 0) {
-            input.classList.add('error-input');
-            textError.style.display = 'inline-block'
-        } else {
-            input.classList.remove('error-input');
-            textError.style.display = 'none'
-        }
-    })
+const activateError = (input, textError) => {
+    input.classList.add('error-input');
+    textError.style.display = 'inline-block'
+}
+
+const deactivateError = (input, textError) => {
+    input.classList.remove('error-input');
+    textError.style.display = 'none'
 }
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (addInputError);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (addInputErrorToEvent);
 
 
 /***/ }),
@@ -188,6 +210,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 const setName = (name) => localStorage.setItem('name', name);
 const getName = () => localStorage.getItem('name');
 const deleteName = () => localStorage.removeItem('name');
@@ -239,7 +262,8 @@ const activateNameBlock = () => {
     const input = nameForm.querySelector('input');
 
     startCheck(nameForm);
-    (0,_inputError__WEBPACK_IMPORTED_MODULE_1__.default)(input, error);
+    input.addEventListener('input', (0,_inputError__WEBPACK_IMPORTED_MODULE_1__.default)(input, error));
+    nameForm.addEventListener('submit', (0,_inputError__WEBPACK_IMPORTED_MODULE_1__.default)(input, error));
 
     const getNameInput = (values, props) => {
         const {form} = props;
