@@ -1,11 +1,10 @@
 import {handleSubmit} from "./formFunctions";
-import addInputError from "./inputError";
+import addInputError, {checkInput} from "./inputError";
 
 const setName = (name) => localStorage.setItem('name', name);
 const getName = () => localStorage.getItem('name');
 const deleteName = () => localStorage.removeItem('name');
 const logoutFunc = (e, form, label, title) => {
-    console.log(form);
     const loginContainer = document.querySelector('.login-container');
     e.preventDefault();
     deleteName();
@@ -17,8 +16,6 @@ const logoutFunc = (e, form, label, title) => {
 const activateLogin = (form, label, title) => {
     const logoContainer = document.querySelector('.logo-container');
     const login = document.createElement('div');
-
-
 
     login.classList.add('login-container')
     login.innerHTML = `
@@ -48,18 +45,21 @@ const startCheck = (form) => {
     }
     return false;
 }
+const error = 'Имя не может быть пустым';
 
 const activateNameBlock = () => {
     const nameForm = document.querySelector('.name-form');
     const input = nameForm.querySelector('input');
 
-    addInputError(input, 'Имя не может быть пустым');
     startCheck(nameForm);
 
     const getNameInput = (values, props) => {
         const {form} = props;
-        const {input} = props.inputs;
-        if(input.value.trim().length === 0) return;
+        const [input] = props.inputs;
+        if(input.value.trim().length === 0) {
+            checkInput(input, error);
+            return;
+        }
 
         if (!startCheck(form)) {
             const [name] = values;

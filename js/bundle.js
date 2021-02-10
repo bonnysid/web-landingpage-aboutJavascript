@@ -58,7 +58,7 @@ const handleSubmit = (props) => {
     const inputs = getInputs(props.form, props.checked);
     const values = getValues(...inputs);
 
-    props.callback(values, {inputs: inputs, ...props});
+    props.callback(values, {inputs, ...props});
 }
 
 /***/ }),
@@ -108,18 +108,50 @@ window.addEventListener('DOMContentLoaded', () => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "checkInput": () => (/* binding */ checkInput),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 const addInputError = (input, error) => {
+    const textError = document.createElement('span');
+    textError.classList.add('error-text');
+    textError.innerHTML = error;
+    textError.style.display = 'none';
+    input.before(textError);
+
     input.addEventListener('change', (e) => {
         if (input.value.trim().length === 0) {
             input.classList.add('error-input');
-            input.prepend(`<span class="error-text">${error}</span>`);
+            textError.style.display = 'inline-block'
         } else {
             input.classList.remove('error-input');
-            input.querySelector('.error-text').remove();
+            textError.style.display = 'none'
         }
     })
+}
+
+const checkInput = (input, error) => {
+    const previousCheck = () => input.previousElementSibling && input.previousElementSibling.classList.contains('error-text');
+
+    let textError;
+    if(previousCheck()) {
+        textError = input.previousElementSibling
+    } else {
+        textError = document.createElement('span');
+        textError.classList.add('error-text');
+        textError.innerHTML = error;
+        textError.style.display = 'none';
+    }
+
+    if (!input.previousElementSibling) input.before(textError);
+
+    if (input.value.trim().length === 0) {
+        input.classList.add('error-input');
+        textError.style.display = 'inline-block'
+    } else {
+        input.classList.remove('error-input');
+        textError.style.display = 'none'
+    }
+
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (addInputError);
@@ -185,7 +217,6 @@ const setName = (name) => localStorage.setItem('name', name);
 const getName = () => localStorage.getItem('name');
 const deleteName = () => localStorage.removeItem('name');
 const logoutFunc = (e, form, label, title) => {
-    console.log(form);
     const loginContainer = document.querySelector('.login-container');
     e.preventDefault();
     deleteName();
@@ -197,8 +228,6 @@ const logoutFunc = (e, form, label, title) => {
 const activateLogin = (form, label, title) => {
     const logoContainer = document.querySelector('.logo-container');
     const login = document.createElement('div');
-
-
 
     login.classList.add('login-container')
     login.innerHTML = `
@@ -228,18 +257,21 @@ const startCheck = (form) => {
     }
     return false;
 }
+const error = 'Имя не может быть пустым';
 
 const activateNameBlock = () => {
     const nameForm = document.querySelector('.name-form');
     const input = nameForm.querySelector('input');
 
-    (0,_inputError__WEBPACK_IMPORTED_MODULE_1__.default)(input, 'Имя не может быть пустым');
     startCheck(nameForm);
 
     const getNameInput = (values, props) => {
         const {form} = props;
-        const {input} = props.inputs;
-        if(input.value.trim().length === 0) return;
+        const [input] = props.inputs;
+        if(input.value.trim().length === 0) {
+            (0,_inputError__WEBPACK_IMPORTED_MODULE_1__.checkInput)(input, error);
+            return;
+        }
 
         if (!startCheck(form)) {
             const [name] = values;

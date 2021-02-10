@@ -11,5 +11,5 @@ export const handleSubmit = (props) => {
     const inputs = getInputs(props.form, props.checked);
     const values = getValues(...inputs);
 
-    props.callback(values, {inputs: inputs, ...props});
+    props.callback(values, {inputs, ...props});
 }
