@@ -115,7 +115,7 @@ path {
 }
 @media (max-width: 1440px) {
   .wave {
-    bottom: -100px;
+    bottom: -99px;
   }
 }
 @media (max-width: 1024px) {
