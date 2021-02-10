@@ -108,7 +108,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "checkInput": () => (/* binding */ checkInput),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 const addInputError = (input, error) => {
@@ -118,7 +117,7 @@ const addInputError = (input, error) => {
     textError.style.display = 'none';
     input.before(textError);
 
-    input.addEventListener('change', (e) => {
+    input.addEventListener('input', (e) => {
         if (input.value.trim().length === 0) {
             input.classList.add('error-input');
             textError.style.display = 'inline-block'
@@ -129,30 +128,6 @@ const addInputError = (input, error) => {
     })
 }
 
-const checkInput = (input, error) => {
-    const previousCheck = () => input.previousElementSibling && input.previousElementSibling.classList.contains('error-text');
-
-    let textError;
-    if(previousCheck()) {
-        textError = input.previousElementSibling
-    } else {
-        textError = document.createElement('span');
-        textError.classList.add('error-text');
-        textError.innerHTML = error;
-        textError.style.display = 'none';
-    }
-
-    if (!input.previousElementSibling) input.before(textError);
-
-    if (input.value.trim().length === 0) {
-        input.classList.add('error-input');
-        textError.style.display = 'inline-block'
-    } else {
-        input.classList.remove('error-input');
-        textError.style.display = 'none'
-    }
-
-}
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (addInputError);
 
@@ -264,14 +239,12 @@ const activateNameBlock = () => {
     const input = nameForm.querySelector('input');
 
     startCheck(nameForm);
+    (0,_inputError__WEBPACK_IMPORTED_MODULE_1__.default)(input, error);
 
     const getNameInput = (values, props) => {
         const {form} = props;
         const [input] = props.inputs;
-        if(input.value.trim().length === 0) {
-            (0,_inputError__WEBPACK_IMPORTED_MODULE_1__.checkInput)(input, error);
-            return;
-        }
+        if(input.value.trim().length === 0) return;
 
         if (!startCheck(form)) {
             const [name] = values;

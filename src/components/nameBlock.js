@@ -52,14 +52,12 @@ const activateNameBlock = () => {
     const input = nameForm.querySelector('input');
 
     startCheck(nameForm);
+    addInputError(input, error);
 
     const getNameInput = (values, props) => {
         const {form} = props;
         const [input] = props.inputs;
-        if(input.value.trim().length === 0) {
-            checkInput(input, error);
-            return;
-        }
+        if(input.value.trim().length === 0) return;
 
         if (!startCheck(form)) {
             const [name] = values;
