@@ -100,6 +100,33 @@ window.addEventListener('DOMContentLoaded', () => {
 
 /***/ }),
 
+/***/ "./src/components/inputError.js":
+/*!**************************************!*\
+  !*** ./src/components/inputError.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const addInputError = (input, error) => {
+    input.addEventListener('change', (e) => {
+        if (input.value.trim().length === 0) {
+            input.classList.add('error-input');
+            input.prepend(`<span class="error-text">${error}</span>`);
+        } else {
+            input.classList.remove('error-input');
+            input.querySelector('.error-text').remove();
+        }
+    })
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (addInputError);
+
+
+/***/ }),
+
 /***/ "./src/components/minMaxBlock.js":
 /*!***************************************!*\
   !*** ./src/components/minMaxBlock.js ***!
@@ -150,6 +177,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _formFunctions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./formFunctions */ "./src/components/formFunctions.js");
+/* harmony import */ var _inputError__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./inputError */ "./src/components/inputError.js");
+
 
 
 const setName = (name) => localStorage.setItem('name', name);
@@ -202,11 +231,15 @@ const startCheck = (form) => {
 
 const activateNameBlock = () => {
     const nameForm = document.querySelector('.name-form');
+    const input = nameForm.querySelector('input');
 
+    (0,_inputError__WEBPACK_IMPORTED_MODULE_1__.default)(input, 'Имя не может быть пустым');
     startCheck(nameForm);
 
     const getNameInput = (values, props) => {
         const {form} = props;
+        const {input} = props.inputs;
+        if(input.value.trim().length === 0) return;
 
         if (!startCheck(form)) {
             const [name] = values;

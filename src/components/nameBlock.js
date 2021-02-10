@@ -1,4 +1,5 @@
 import {handleSubmit} from "./formFunctions";
+import addInputError from "./inputError";
 
 const setName = (name) => localStorage.setItem('name', name);
 const getName = () => localStorage.getItem('name');
@@ -50,11 +51,15 @@ const startCheck = (form) => {
 
 const activateNameBlock = () => {
     const nameForm = document.querySelector('.name-form');
+    const input = nameForm.querySelector('input');
 
+    addInputError(input, 'Имя не может быть пустым');
     startCheck(nameForm);
 
     const getNameInput = (values, props) => {
         const {form} = props;
+        const {input} = props.inputs;
+        if(input.value.trim().length === 0) return;
 
         if (!startCheck(form)) {
             const [name] = values;

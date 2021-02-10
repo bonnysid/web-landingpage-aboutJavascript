@@ -137,6 +137,14 @@ body {
   }
 }
 
+.error-input {
+  border: 2px solid var(--red);
+}
+
+.error-text {
+  color: var(--red);
+}
+
 .bg-yellow {
   background: var(--yellow);
 
