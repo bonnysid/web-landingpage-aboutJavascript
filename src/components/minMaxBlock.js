@@ -17,7 +17,7 @@ const activateMinMaxBlock = () => {
 
     const findMinMax = (values, props) => {
         let [numValues] = values;
-        if(numValues.some(num => !isNumeric(num))) return;
+        if(numValues.split(',').some(num => !isNumeric(num))) return;
         numValues = numValues.trim().split(',').map(num => +num);
 
 
