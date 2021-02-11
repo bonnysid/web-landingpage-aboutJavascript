@@ -186,13 +186,13 @@ const activateMinMaxBlock = () => {
         input.addEventListener('input', (0,_inputError__WEBPACK_IMPORTED_MODULE_1__.default)({
             input,
             error: 'Введите числа!',
-            errorCheck: () => input.value.split(',').some(num => !(0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.isNumeric)(num))
+            errorCheck: () => input.value.split(',').some(num => !(0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.isNumeric)(num) || !input.value.length)
         }))
     });
 
     const findMinMax = (values, props) => {
         let [numValues] = values;
-        if(numValues.split(',').some(num => !(0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.isNumeric)(num))) return;
+        if(numValues.split(',').some(num => !(0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.isNumeric)(num)) || !numValues.length) return;
         numValues = numValues.trim().split(',').map(num => +num);
 
 

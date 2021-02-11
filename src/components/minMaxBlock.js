@@ -11,13 +11,13 @@ const activateMinMaxBlock = () => {
         input.addEventListener('input', addInputErrorValidation({
             input,
             error: 'Введите числа!',
-            errorCheck: () => input.value.split(',').some(num => !isNumeric(num))
+            errorCheck: () => input.value.split(',').some(num => !isNumeric(num) || !input.value.length)
         }))
     });
 
     const findMinMax = (values, props) => {
         let [numValues] = values;
-        if(numValues.split(',').some(num => !isNumeric(num))) return;
+        if(numValues.split(',').some(num => !isNumeric(num)) || !numValues.length) return;
         numValues = numValues.trim().split(',').map(num => +num);
 
 

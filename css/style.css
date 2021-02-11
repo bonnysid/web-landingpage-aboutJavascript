@@ -253,7 +253,7 @@ path {
 
   .navbar {
     position: fixed;
-    right: -100%;
+    right: -110%;
     top: 80px;
     width: 350px;
     display: flex;
