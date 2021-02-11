@@ -181,9 +181,26 @@ body {
   --title-size: 48px;
   --text-size: 20px;
 }
-@media (max-width: 425px) {
+
+@media (max-width: 972px) {
+  .title {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 747px) {
+  .title {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 730px) {
   .part-img {
     display: none;
+  }
+
+  .title {
+    font-size: var(--title-size);
   }
 
   .two-col {

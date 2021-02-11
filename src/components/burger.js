@@ -10,9 +10,8 @@ const activateBurger = () => {
         aside.classList.toggle('active');
     }
 
-    burger.addEventListener('click', evt => {
-        toggleMenu();
-    })
+    burger.addEventListener('click', toggleMenu);
+    aside.addEventListener('click', toggleMenu)
 }
 
 export default activateBurger;

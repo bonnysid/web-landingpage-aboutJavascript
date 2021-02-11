@@ -24,9 +24,8 @@ const activateBurger = () => {
         aside.classList.toggle('active');
     }
 
-    burger.addEventListener('click', evt => {
-        toggleMenu();
-    })
+    burger.addEventListener('click', toggleMenu);
+    aside.addEventListener('click', toggleMenu)
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (activateBurger);
@@ -181,6 +180,12 @@ const error = 'Введите число!';
 const activateMinMaxBlock = () => {
     const minMaxForm = document.querySelector('.minmax-form');
     const inputs = (0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.getInputs)(minMaxForm);
+
+    minMaxForm.addEventListener('submit', (0,_inputError__WEBPACK_IMPORTED_MODULE_1__.default)({
+        input: inputs[0],
+        error: 'Введите числа!',
+        errorCheck: () => inputs[0].value.split(',').some(num => !(0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.isNumeric)(num) || !inputs[0].value.length)
+    }))
 
     inputs.forEach(input => {
         input.addEventListener('input', (0,_inputError__WEBPACK_IMPORTED_MODULE_1__.default)({
@@ -566,7 +571,21 @@ const activateTriangleBlock = () => {
     const inputs = (0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.getInputs)(triangleForm);
     const ERROR_NUM = 'Введи число, больше 0';
 
-    (0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.addEventListeners)({
+    triangleForm.addEventListener('submit', (0,_inputError__WEBPACK_IMPORTED_MODULE_1__.default)({
+        input: inputs[0],
+        error: ERROR_NUM,
+        errorCheck: () => !(0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.isNumeric)(inputs[0].value) || +inputs[0].value <= 0
+
+    }))
+
+    triangleForm.addEventListener('submit', (0,_inputError__WEBPACK_IMPORTED_MODULE_1__.default)({
+        input: inputs[1],
+        error: ERROR_NUM,
+        errorCheck: () => !(0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.isNumeric)(inputs[1].value) || +inputs[1].value <= 0
+
+    }))
+
+    ;(0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.addEventListeners)({
         elements: inputs,
         events: ['input'],
         actionCreator: _inputError__WEBPACK_IMPORTED_MODULE_1__.default,
@@ -652,10 +671,43 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _formFunctions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./formFunctions */ "./src/components/formFunctions.js");
+/* harmony import */ var _inputError__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./inputError */ "./src/components/inputError.js");
+
 
 
 const activateWordsBlock = () => {
     const wordsForm = document.querySelector('.words-form');
+    const inputs = (0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.getInputs)(wordsForm);
+    const ERROR = 'Введите слово';
+
+    wordsForm.addEventListener('submit', (0,_inputError__WEBPACK_IMPORTED_MODULE_1__.default)({
+        input: inputs[0],
+        error: ERROR,
+        errorCheck: () => inputs[0].value.length === 0
+    }))
+    wordsForm.addEventListener('submit', (0,_inputError__WEBPACK_IMPORTED_MODULE_1__.default)({
+        input: inputs[1],
+        error: ERROR,
+        errorCheck: () => inputs[1].value.length === 0
+    }))
+
+    ;(0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.addEventListeners)({
+        elements: inputs,
+        events: ['input'],
+        actionCreator: _inputError__WEBPACK_IMPORTED_MODULE_1__.default,
+        props: {
+            forElemActions: [{
+                input: inputs[0],
+                error: ERROR,
+                errorCheck: () => inputs[0].value.length === 0
+
+            },
+                {
+                    input: inputs[1],
+                    error: ERROR,
+                    errorCheck: () => inputs[0].value.length === 0
+                }]
+        }});
 
     const checkForEquals = (values, props) => {
         const [first, second] = values;

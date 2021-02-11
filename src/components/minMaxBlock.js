@@ -7,6 +7,12 @@ const activateMinMaxBlock = () => {
     const minMaxForm = document.querySelector('.minmax-form');
     const inputs = getInputs(minMaxForm);
 
+    minMaxForm.addEventListener('submit', addInputErrorValidation({
+        input: inputs[0],
+        error: 'Введите числа!',
+        errorCheck: () => inputs[0].value.split(',').some(num => !isNumeric(num) || !inputs[0].value.length)
+    }))
+
     inputs.forEach(input => {
         input.addEventListener('input', addInputErrorValidation({
             input,

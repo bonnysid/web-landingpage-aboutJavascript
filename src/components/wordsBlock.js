@@ -1,7 +1,39 @@
-import {handleSubmit} from "./formFunctions";
+import {addEventListeners, getInputs, handleSubmit, isNumeric} from "./formFunctions";
+import addInputErrorValidation from "./inputError";
 
 const activateWordsBlock = () => {
     const wordsForm = document.querySelector('.words-form');
+    const inputs = getInputs(wordsForm);
+    const ERROR = 'Введите слово';
+
+    wordsForm.addEventListener('submit', addInputErrorValidation({
+        input: inputs[0],
+        error: ERROR,
+        errorCheck: () => inputs[0].value.length === 0
+    }))
+    wordsForm.addEventListener('submit', addInputErrorValidation({
+        input: inputs[1],
+        error: ERROR,
+        errorCheck: () => inputs[1].value.length === 0
+    }))
+
+    addEventListeners({
+        elements: inputs,
+        events: ['input'],
+        actionCreator: addInputErrorValidation,
+        props: {
+            forElemActions: [{
+                input: inputs[0],
+                error: ERROR,
+                errorCheck: () => inputs[0].value.length === 0
+
+            },
+                {
+                    input: inputs[1],
+                    error: ERROR,
+                    errorCheck: () => inputs[0].value.length === 0
+                }]
+        }});
 
     const checkForEquals = (values, props) => {
         const [first, second] = values;

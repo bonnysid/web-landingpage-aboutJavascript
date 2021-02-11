@@ -78,8 +78,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .wave {
-  position: absolute;
-  bottom: -138px;
   height: 100px;
   width: 100%;
   transform: rotate(180deg);
@@ -88,14 +86,20 @@ h1, h2, h3, h4, h5, h6 {
 
 .yellowWave {
   fill: var(--yellow);
+  height: 100%;
+  width: 100%;
 }
 
 .whiteWave {
   fill: var(--white);
+  height: 100%;
+  width: 100%;
 }
 
 .grayWave {
   fill: var(--off-white);
+  height: 100%;
+  width: 100%;
 }
 
 path {
@@ -111,36 +115,6 @@ path {
   }
   100% {
     d: path("M842.322034,38.0019829 C686.954825,71.1183168 623.386282,53.08497 467.492582,19.4422816 C313.032879,-13.8909426 84.0992497,8.02840272 0,44.7243294 L0,150.727527 L1920,150.727527 L1920,76.8685643 C1512.23604,-35.3595639 1568.70222,67.4289432 1278.62078,31.7541069 C988.539347,-3.92072949 997.689243,4.88564905 842.322034,38.0019829 Z");
-  }
-}
-@media (max-width: 1440px) {
-  .wave {
-    bottom: -99px;
-  }
-}
-@media (max-width: 1024px) {
-  .wave {
-    bottom: -71px;
-  }
-}
-@media (max-width: 768px) {
-  .wave {
-    bottom: -52px;
-  }
-}
-@media (max-width: 425px) {
-  .wave {
-    bottom: -30px;
-  }
-}
-@media (max-width: 375px) {
-  .wave {
-    bottom: -26px;
-  }
-}
-@media (max-width: 320px) {
-  .wave {
-    bottom: -22px;
   }
 }
 .header {
@@ -541,9 +515,23 @@ body {
   --text-size: 20px;
 }
 
-@media (max-width: 425px) {
+@media (max-width: 972px) {
+  .title {
+    font-size: 30px;
+  }
+}
+@media (max-width: 747px) {
+  .title {
+    font-size: 26px;
+  }
+}
+@media (max-width: 730px) {
   .part-img {
     display: none;
+  }
+
+  .title {
+    font-size: var(--title-size);
   }
 
   .two-col {

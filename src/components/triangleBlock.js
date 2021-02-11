@@ -9,6 +9,20 @@ const activateTriangleBlock = () => {
     const inputs = getInputs(triangleForm);
     const ERROR_NUM = 'Введи число, больше 0';
 
+    triangleForm.addEventListener('submit', addInputErrorValidation({
+        input: inputs[0],
+        error: ERROR_NUM,
+        errorCheck: () => !isNumeric(inputs[0].value) || +inputs[0].value <= 0
+
+    }))
+
+    triangleForm.addEventListener('submit', addInputErrorValidation({
+        input: inputs[1],
+        error: ERROR_NUM,
+        errorCheck: () => !isNumeric(inputs[1].value) || +inputs[1].value <= 0
+
+    }))
+
     addEventListeners({
         elements: inputs,
         events: ['input'],
