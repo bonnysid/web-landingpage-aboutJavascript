@@ -1,9 +1,33 @@
-import {handleSubmit} from "./formFunctions";
+import {addEventListeners, getInputs, handleSubmit, isNumeric} from "./formFunctions";
+import addInputErrorValidation from "./inputError";
 
 const activateTriangleBlock = () => {
     const triangleForm = document.querySelector('.triangle-form');
     const triangleCanvas = document.querySelector('#triangle-canvas');
     const triangleCanvasContext = triangleCanvas.getContext('2d');
+
+    const inputs = getInputs(triangleForm);
+    const ERROR_NUM = 'Введи число';
+    const ERROR_ZERO = 'Число не может быть меньше 1!';
+    const actions = [];
+
+    inputs.forEach(input => {
+        actions.push(addInputErrorValidation({
+            input,
+            error: ERROR_ZERO,
+            errorCheck: () => !isNumeric(input.value) && +input.value <= 0
+        }))
+        actions.push(addInputErrorValidation({
+            input,
+            error: ERROR_NUM,
+            errorCheck: () => !isNumeric(input.value)
+        }))
+    })
+    addEventListeners({
+        elements: inputs,
+        events: ['input'],
+        actions: actions
+    })
 
     const calculateTriangleArea = (values, props) => {
         let [height, length] = values.map(value => +value);

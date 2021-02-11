@@ -1,19 +1,12 @@
-export const addInputErrorToValueChange = (input, error) => {
-    input.addEventListener('input', (e) => {
-        if (input.value.trim().length === 0) activateError(input, textError)
-        else deactivateError(input, textError);
-    })
-}
-
 const checkForTextError = (input) => {
     return input.previousElementSibling && input.previousElementSibling.classList.contains('error-text') ? input.previousElementSibling : null;
 }
 
-const addInputErrorToEvent = (input, error) => {
+const addInputErrorValidation = ({input, error, errorCheck}) => {
     const textError = checkForTextError(input) || addTextError(input, error);
 
     return (e) => {
-        if (input.value.trim().length === 0) activateError(input, textError)
+        if (errorCheck()) activateError(input, textError)
         else deactivateError(input, textError);
     }
 }
@@ -38,4 +31,4 @@ const deactivateError = (input, textError) => {
 }
 
 
-export default addInputErrorToEvent;
+export default addInputErrorValidation;

@@ -43,7 +43,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getInputs": () => (/* binding */ getInputs),
 /* harmony export */   "getValues": () => (/* binding */ getValues),
-/* harmony export */   "handleSubmit": () => (/* binding */ handleSubmit)
+/* harmony export */   "handleSubmit": () => (/* binding */ handleSubmit),
+/* harmony export */   "addEventListeners": () => (/* binding */ addEventListeners),
+/* harmony export */   "isNumeric": () => (/* binding */ isNumeric)
 /* harmony export */ });
 const getInputs = (form, checked) => {
     return form.querySelectorAll(`input${checked ? ':checked' : ''}`);
@@ -60,6 +62,19 @@ const handleSubmit = (props) => {
 
     props.callback(values, {inputs, ...props});
 }
+
+const addEventListeners = ({elements, events, actions}) => {
+    elements.forEach(element => {
+        events.forEach(event => {
+            actions.forEach(action => {
+                element.addEventListener(event, action);
+            })
+        })
+    })
+}
+
+const isNumeric = (num) =>!isNaN(num);
+
 
 /***/ }),
 
@@ -108,25 +123,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "addInputErrorToValueChange": () => (/* binding */ addInputErrorToValueChange),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-const addInputErrorToValueChange = (input, error) => {
-    input.addEventListener('input', (e) => {
-        if (input.value.trim().length === 0) activateError(input, textError)
-        else deactivateError(input, textError);
-    })
-}
-
 const checkForTextError = (input) => {
     return input.previousElementSibling && input.previousElementSibling.classList.contains('error-text') ? input.previousElementSibling : null;
 }
 
-const addInputErrorToEvent = (input, error) => {
+const addInputErrorValidation = ({input, error, errorCheck}) => {
     const textError = checkForTextError(input) || addTextError(input, error);
 
     return (e) => {
-        if (input.value.trim().length === 0) activateError(input, textError)
+        if (errorCheck()) activateError(input, textError)
         else deactivateError(input, textError);
     }
 }
@@ -151,7 +158,7 @@ const deactivateError = (input, textError) => {
 }
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (addInputErrorToEvent);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (addInputErrorValidation);
 
 
 /***/ }),
@@ -167,15 +174,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _formFunctions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./formFunctions */ "./src/components/formFunctions.js");
+/* harmony import */ var _inputError__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./inputError */ "./src/components/inputError.js");
 
+
+const error = 'Введите число!';
 
 const activateMinMaxBlock = () => {
     const minMaxForm = document.querySelector('.minmax-form');
+    const inputs = (0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.getInputs)(minMaxForm);
 
     const findMinMax = (values, props) => {
         let [numValues] = values;
         numValues = numValues.trim().split(',').map(num => +num);
-        console.log(numValues)
+
         const {form} = props;
         const min = form.querySelector('.min');
         const max = form.querySelector('.max');
@@ -262,13 +273,21 @@ const activateNameBlock = () => {
     const input = nameForm.querySelector('input');
 
     startCheck(nameForm);
-    input.addEventListener('input', (0,_inputError__WEBPACK_IMPORTED_MODULE_1__.default)(input, error));
-    nameForm.addEventListener('submit', (0,_inputError__WEBPACK_IMPORTED_MODULE_1__.default)(input, error));
+    input.addEventListener('input', (0,_inputError__WEBPACK_IMPORTED_MODULE_1__.default)({
+        input,
+        error,
+        errorCheck: () => input.value.trim().length === 0
+    }));
+    nameForm.addEventListener('submit', (0,_inputError__WEBPACK_IMPORTED_MODULE_1__.default)({
+        input,
+        error,
+        errorCheck: () => input.value.trim().length === 0
+    }));
 
     const getNameInput = (values, props) => {
         const {form} = props;
         const [input] = props.inputs;
-        if(input.value.trim().length === 0) return;
+        if (input.value.trim().length === 0) return;
 
         if (!startCheck(form)) {
             const [name] = values;
@@ -523,12 +542,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _formFunctions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./formFunctions */ "./src/components/formFunctions.js");
+/* harmony import */ var _inputError__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./inputError */ "./src/components/inputError.js");
+
 
 
 const activateTriangleBlock = () => {
     const triangleForm = document.querySelector('.triangle-form');
     const triangleCanvas = document.querySelector('#triangle-canvas');
     const triangleCanvasContext = triangleCanvas.getContext('2d');
+
+    const inputs = (0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.getInputs)(triangleForm);
+    const ERROR_NUM = 'Введи число';
+    const ERROR_ZERO = 'Число не может быть меньше 1!';
+    const actions = [];
+
+    inputs.forEach(input => {
+        actions.push((0,_inputError__WEBPACK_IMPORTED_MODULE_1__.default)({
+            input,
+            error: ERROR_ZERO,
+            errorCheck: () => !(0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.isNumeric)(input.value) && +input.value <= 0
+        }))
+        actions.push((0,_inputError__WEBPACK_IMPORTED_MODULE_1__.default)({
+            input,
+            error: ERROR_NUM,
+            errorCheck: () => !(0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.isNumeric)(input.value)
+        }))
+    })
+    ;(0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.addEventListeners)({
+        elements: inputs,
+        events: ['input'],
+        actions: actions
+    })
 
     const calculateTriangleArea = (values, props) => {
         let [height, length] = values.map(value => +value);

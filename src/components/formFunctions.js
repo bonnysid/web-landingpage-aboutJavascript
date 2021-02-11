@@ -13,3 +13,15 @@ export const handleSubmit = (props) => {
 
     props.callback(values, {inputs, ...props});
 }
+
+export const addEventListeners = ({elements, events, actions}) => {
+    elements.forEach(element => {
+        events.forEach(event => {
+            actions.forEach(action => {
+                element.addEventListener(event, action);
+            })
+        })
+    })
+}
+
+export const isNumeric = (num) =>!isNaN(num);

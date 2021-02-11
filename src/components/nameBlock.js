@@ -1,6 +1,6 @@
 import {handleSubmit} from "./formFunctions";
 import addInputError, {checkInput} from "./inputError";
-import addInputErrorToEvent from "./inputError";
+import addInputErrorValidation from "./inputError";
 
 const setName = (name) => localStorage.setItem('name', name);
 const getName = () => localStorage.getItem('name');
@@ -53,13 +53,21 @@ const activateNameBlock = () => {
     const input = nameForm.querySelector('input');
 
     startCheck(nameForm);
-    input.addEventListener('input', addInputErrorToEvent(input, error));
-    nameForm.addEventListener('submit', addInputErrorToEvent(input, error));
+    input.addEventListener('input', addInputErrorValidation({
+        input,
+        error,
+        errorCheck: () => input.value.trim().length === 0
+    }));
+    nameForm.addEventListener('submit', addInputErrorValidation({
+        input,
+        error,
+        errorCheck: () => input.value.trim().length === 0
+    }));
 
     const getNameInput = (values, props) => {
         const {form} = props;
         const [input] = props.inputs;
-        if(input.value.trim().length === 0) return;
+        if (input.value.trim().length === 0) return;
 
         if (!startCheck(form)) {
             const [name] = values;
