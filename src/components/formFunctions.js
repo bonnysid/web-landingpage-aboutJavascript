@@ -14,12 +14,10 @@ export const handleSubmit = (props) => {
     props.callback(values, {inputs, ...props});
 }
 
-export const addEventListeners = ({elements, events, actions}) => {
-    elements.forEach(element => {
+export const addEventListeners = ({elements, events, actionCreator, props}) => {
+    elements.forEach((element, i) => {
         events.forEach(event => {
-            actions.forEach(action => {
-                element.addEventListener(event, action);
-            })
+            element.addEventListener(event, actionCreator(props.forElemActions[i]));
         })
     })
 }

@@ -63,12 +63,10 @@ const handleSubmit = (props) => {
     props.callback(values, {inputs, ...props});
 }
 
-const addEventListeners = ({elements, events, actions}) => {
-    elements.forEach(element => {
+const addEventListeners = ({elements, events, actionCreator, props}) => {
+    elements.forEach((element, i) => {
         events.forEach(event => {
-            actions.forEach(action => {
-                element.addEventListener(event, action);
-            })
+            element.addEventListener(event, actionCreator(props.forElemActions[i]));
         })
     })
 }
@@ -177,19 +175,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inputError__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./inputError */ "./src/components/inputError.js");
 
 
+
 const error = 'Введите число!';
 
 const activateMinMaxBlock = () => {
     const minMaxForm = document.querySelector('.minmax-form');
     const inputs = (0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.getInputs)(minMaxForm);
 
+    inputs.forEach(input => {
+        input.addEventListener('input', (0,_inputError__WEBPACK_IMPORTED_MODULE_1__.default)({
+            input,
+            error: 'Введите числа!',
+            errorCheck: () => input.value.split(',').some(num => !(0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.isNumeric)(num))
+        }))
+    });
+
     const findMinMax = (values, props) => {
         let [numValues] = values;
+        if(numValues.some(num => !(0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.isNumeric)(num))) return;
         numValues = numValues.trim().split(',').map(num => +num);
+
+
 
         const {form} = props;
         const min = form.querySelector('.min');
         const max = form.querySelector('.max');
+
+
 
         min.innerHTML = `<span style="color: #bf5050">Min</span>: ${Math.min(...numValues)}`;
         max.innerHTML = `<span style="color: #70b35f">Max</span>: ${Math.max(...numValues)}`;
@@ -552,30 +564,32 @@ const activateTriangleBlock = () => {
     const triangleCanvasContext = triangleCanvas.getContext('2d');
 
     const inputs = (0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.getInputs)(triangleForm);
-    const ERROR_NUM = 'Введи число';
-    const ERROR_ZERO = 'Число не может быть меньше 1!';
-    const actions = [];
+    const ERROR_NUM = 'Введи число, больше 0';
 
-    inputs.forEach(input => {
-        actions.push((0,_inputError__WEBPACK_IMPORTED_MODULE_1__.default)({
-            input,
-            error: ERROR_ZERO,
-            errorCheck: () => !(0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.isNumeric)(input.value) && +input.value <= 0
-        }))
-        actions.push((0,_inputError__WEBPACK_IMPORTED_MODULE_1__.default)({
-            input,
-            error: ERROR_NUM,
-            errorCheck: () => !(0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.isNumeric)(input.value)
-        }))
-    })
-    ;(0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.addEventListeners)({
+    (0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.addEventListeners)({
         elements: inputs,
         events: ['input'],
-        actions: actions
+        actionCreator: _inputError__WEBPACK_IMPORTED_MODULE_1__.default,
+        props: {
+            forElemActions: [{
+                input: inputs[0],
+                error: ERROR_NUM,
+                errorCheck: () => !(0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.isNumeric)(inputs[0].value) || +inputs[0].value <= 0
+
+            },
+                {
+                    input: inputs[1],
+                    error: ERROR_NUM,
+                    errorCheck: () => !(0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.isNumeric)(inputs[1].value) || +inputs[1].value <= 0
+                }]
+
+
+        }
     })
 
     const calculateTriangleArea = (values, props) => {
         let [height, length] = values.map(value => +value);
+        if (!(0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.isNumeric)(height) || !(0,_formFunctions__WEBPACK_IMPORTED_MODULE_0__.isNumeric)(length) || height <= 0 || length <= 0) return;
         const area = height * length / 2;
         const {ctx, width = 2, fill = '#333', canvasWidth = 100, canvasHeight = 100, form} = props;
 

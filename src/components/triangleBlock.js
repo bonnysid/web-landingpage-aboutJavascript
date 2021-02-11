@@ -7,30 +7,32 @@ const activateTriangleBlock = () => {
     const triangleCanvasContext = triangleCanvas.getContext('2d');
 
     const inputs = getInputs(triangleForm);
-    const ERROR_NUM = 'Введи число';
-    const ERROR_ZERO = 'Число не может быть меньше 1!';
-    const actions = [];
+    const ERROR_NUM = 'Введи число, больше 0';
 
-    inputs.forEach(input => {
-        actions.push(addInputErrorValidation({
-            input,
-            error: ERROR_ZERO,
-            errorCheck: () => !isNumeric(input.value) && +input.value <= 0
-        }))
-        actions.push(addInputErrorValidation({
-            input,
-            error: ERROR_NUM,
-            errorCheck: () => !isNumeric(input.value)
-        }))
-    })
     addEventListeners({
         elements: inputs,
         events: ['input'],
-        actions: actions
+        actionCreator: addInputErrorValidation,
+        props: {
+            forElemActions: [{
+                input: inputs[0],
+                error: ERROR_NUM,
+                errorCheck: () => !isNumeric(inputs[0].value) || +inputs[0].value <= 0
+
+            },
+                {
+                    input: inputs[1],
+                    error: ERROR_NUM,
+                    errorCheck: () => !isNumeric(inputs[1].value) || +inputs[1].value <= 0
+                }]
+
+
+        }
     })
 
     const calculateTriangleArea = (values, props) => {
         let [height, length] = values.map(value => +value);
+        if (!isNumeric(height) || !isNumeric(length) || height <= 0 || length <= 0) return;
         const area = height * length / 2;
         const {ctx, width = 2, fill = '#333', canvasWidth = 100, canvasHeight = 100, form} = props;
 
